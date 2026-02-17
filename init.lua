@@ -1,0 +1,5 @@
+require('settings')
+require('keybinds')
+require('lazy-bootstrap')
+require('autocmds')
+require('highlights')
