@@ -2,37 +2,40 @@
 --   Keybindings
 --]]--------------
 
-vim.keymap.set('i', '<C-Backspace>','<C-w>', { desc = '' })
-vim.keymap.set('i', '<C-e>', '<End>', { desc = '' })
+local set = vim.keymap.set
 
-vim.keymap.set('n', '<C-x><C-s>', vim.cmd.update, { desc = 'Emacs-like buffer update' })
-vim.keymap.set('n', '<C-q><C-q><C-q>', vim.cmd.qall, { desc = '' })
-vim.keymap.set('n', '<C-s><C-s><C-s>', function() vim.print('sourced'); vim.cmd.source() end, { desc = '' })
-vim.keymap.set('n', '<C-p>', ':= ', { desc = '' })
+set('i', '<C-Backspace>','<C-w>', { desc = '' })
+set('i', '<C-Space>', '<Ignore>', { desc = '' })
+set('i', '<C-e>', '<End>', { desc = '' })
+
+set('n', '<C-x><C-s>', vim.cmd.update, { desc = 'Emacs-like buffer update' })
+set('n', '<C-q><C-q><C-q>', vim.cmd.qall, { desc = '' })
+set('n', '<C-s><C-s><C-s>', function() vim.print('sourced'); vim.cmd.source() end, { desc = '' })
+set('n', '<C-p>', ':= ', { desc = '' })
 
 -- Below keymaps creatively expand on the default ones
 -- taking advantage of the underutilized Meta/Alt namespace
-vim.keymap.set('i', '<A-f>', '<C-o>W', { desc = '' })
-vim.keymap.set('i', '<A-b>', '<C-o>B', { desc = '' })
-vim.keymap.set('i', '<C-a>', '<C-o>0', { desc = '' })
+set('i', '<A-f>', '<C-o>W', { desc = '' })
+set('i', '<A-b>', '<C-o>B', { desc = '' })
+set('i', '<C-a>', '<C-o>0', { desc = '' })
 
-vim.keymap.set('n', '<A-q>', '^', { desc = '' })
-vim.keymap.set('n', '<A-c>', '$', { desc = '' })
-vim.keymap.set('n', '<A-g><A-g>', 'Gzz', { desc = 'Goto last line and center the view' })
+set('n', '<A-q>', '^', { desc = '' })
+set('n', '<A-c>', '$', { desc = '' })
+set('n', '<A-g><A-g>', 'Gzz', { desc = 'Goto last line and center the view' })
 
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 -- vim.keymap.set('n', '<leader>o', '<cmd>Oil --float<CR>', { desc = 'Open Explorer' })
 
 -- Move split windows around
-vim.keymap.set('n', '<S-Left>', '<C-w>H', { desc = 'Move Left' })
-vim.keymap.set('n', '<S-Right>', '<C-w>L', { desc = 'Move Right' })
-vim.keymap.set('n', '<S-Down>', '<C-w>J', { desc = 'Move Down' })
-vim.keymap.set('n', '<S-Up>', '<C-w>K', { desc = 'Move Up' })
+set('n', '<S-Left>', '<C-w>H', { desc = 'Move Left' })
+set('n', '<S-Right>', '<C-w>L', { desc = 'Move Right' })
+set('n', '<S-Down>', '<C-w>J', { desc = 'Move Down' })
+set('n', '<S-Up>', '<C-w>K', { desc = 'Move Up' })
 
-vim.keymap.set('n', '<C-k>', '5<C-y>', { desc = '' })
-vim.keymap.set('n', '<C-.>', '5<C-e>', { desc = '' })
+set('n', '<C-k>', '5<C-y>', { desc = '' })
+set('n', '<C-.>', '5<C-e>', { desc = '' })
 
-vim.keymap.set('n', '<C-j>', function()
+set('n', '<C-j>', function()
     vim.o.relativenumber = not vim.o.relativenumber
 end, { desc = 'Toggle relativenumber' })
 
@@ -80,7 +83,5 @@ local cycle_cursor_h = function()
     })
 end
 
-vim.keymap.set('n', '<A-l>', cycle_cursor_v, { desc = 'Emacs-like window cycling' })
-vim.keymap.set('n', '<A-x>', cycle_cursor_h, { desc = 'Line cycling' })
-vim.keymap.set('i', '<C-Space>', '<Ignore>')
-
+set('n', '<A-l>', cycle_cursor_v, { desc = 'Emacs-like window cycling' })
+set('n', '<A-x>', cycle_cursor_h, { desc = 'Line cycling' })
