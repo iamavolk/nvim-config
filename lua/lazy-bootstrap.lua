@@ -25,12 +25,12 @@ require('lazy').setup({
         require 'plugins.nvim-treesitter',
         require 'plugins.yazi-nvim',
         require 'plugins.ultimate-autopair',
-        require 'plugins.indentline',
         require 'plugins.gitsigns',
         require 'plugins.which-key',
         require 'plugins.telescope',
-        -- require 'plugins.lsp-new',
         require 'plugins.nvim-cmp',
+        require 'plugins.indent-blankline-nvim',
+        require 'plugins.nvim-lspconfig',
     },
 
     { install = { colorscheme = { scheme } } }
