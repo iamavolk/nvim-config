@@ -21,22 +21,18 @@ return {
             desc = "Resume the last yazi session",
         },
     },
-    ---@type YaziConfig | {}
-    opts = {
-        -- if you want to open yazi instead of netrw, see below for more info
-        yazi_floating_window_border = 'double',
-        floating_window_scaling_factor = 0.95,
-        open_for_directories = false,
-        keymaps = {
-            show_help = '<C-h><C-h>',
-        },
-    },
-    -- 👇 if you use `open_for_directories=true`, this is recommended
-    init = function()
-        -- mark netrw as loaded so it's not loaded at all.
-        --
-        -- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
-        vim.g.loaded_netrwPlugin = 1
+
+    config = function()
+        require('yazi').setup({
+            keymaps = {
+                show_help = '<C-h><C-h>',
+                copy_relative_path_to_selected_files = false,
+            },
+            highlight_hovered_buffers_in_same_directory = false,
+            yazi_floating_window_border = 'none',
+            floating_window_scaling_factor = 0.90,
+        })
+        vim.api.nvim_set_hl(0, "YaziFloat", { link = "NormalFloat" })
     end,
 }
 -- vim: ts=4 sts=4 sw=4 et
