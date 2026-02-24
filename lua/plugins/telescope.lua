@@ -1,6 +1,6 @@
 return {
     'nvim-telescope/telescope.nvim',
-    event = 'VimEnter',
+
     dependencies = {
         { 'nvim-lua/plenary.nvim' },
         { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -22,10 +22,15 @@ return {
         require('telescope').setup {
             -- `:help telescope.setup()`
             defaults = {
+                layout_strategy = 'vertical',
+                -- border = false,
                 mappings = {
                 -- i = { ['<c-enter>'] = 'to_fuzzy_refine' },
                     i = {
                         ['<C-m>'] = 'select_default',
+                        ['<C-f>'] = 'preview_scrolling_right',
+                        ['<C-b>'] = 'preview_scrolling_left',
+                        ['<C-s>'] = 'toggle_selection',
                     },
                 },
             },
@@ -59,7 +64,6 @@ return {
         vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
         vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
         vim.keymap.set('n', '<leader>sc', builtin.commands, { desc = '[S]earch [C]ommands' })
-        vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
         -- This runs on LSP attach per buffer (see main LSP attach function in 'neovim/nvim-lspconfig' config for more info,
         -- it is better explained there). This allows easily switching between pickers if you prefer using something else!
@@ -95,6 +99,15 @@ return {
             end,
         })
 
+        vim.keymap.set(
+            'n',
+            '<leader><leader>',
+            function() builtin.buffers(require('telescope.themes').get_ivy({
+                previewer = false,
+            })) end,
+            { desc = '' }
+        )
+
         -- Override default behavior and theme when searching
         vim.keymap.set(
             'n',
@@ -125,9 +138,9 @@ return {
             'n',
             '<leader>sn',
             function()
-                builtin.find_files({
+                builtin.find_files(require('telescope.themes').get_dropdown({
                     cwd = vim.fn.stdpath('config')
-                })
+                }))
             end,
             { desc = '[S]earch [N]eovim files' }
         )
