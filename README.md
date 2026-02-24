@@ -24,7 +24,7 @@
 - `saghen/blink.cmp`
 - `nvim-mini/mini-surround`
 
-## Potenially add/rewrite config for
+## Potenially add/rewrite config for/get rid of:
 - `fidget.nvim`
 - `mason.nvim`
 - `mason-tool-installer`
