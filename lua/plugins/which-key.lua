@@ -3,7 +3,7 @@ return {
         'folke/which-key.nvim',
         event = 'VimEnter',
         opts = {
-            delay = 1000,
+            -- delay = 1000,
             icons = {
                 -- if Nerd Font is installed, set mappings = true, and keys = {} 
                 -- otherwise define keys
@@ -19,6 +19,9 @@ return {
                 { '<leader>w', group = '[W]orkspace' },
                 { '<leader>t', group = '[T]oggle' },
                 { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+            },
+            triggers = {
+                { "'", mode = { "n" } },
             },
         },
     },
