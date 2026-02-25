@@ -11,6 +11,8 @@ set('v', '<Space>x', ':lua<CR>')
 
 set('n', '<A-n>', ':cnext<CR>')
 set('n', '<A-p>', ':cprev<CR>')
+set('n', '<C-h>', '<C-x>')
+set('t', '<Esc>', '<C-\\><C-n>')
 
 set('i', '<C-Backspace>', '<C-w>', { desc = '' })
 set('i', '<C-Space>', '<Ignore>', { desc = '' })
@@ -42,45 +44,56 @@ set('n', '<C-k>', '5<C-y>', { desc = '' })
 set('n', '<C-.>', '5<C-e>', { desc = '' })
 
 set('n', '<C-j>', function()
-        vim.o.relativenumber = not vim.o.relativenumber
-    end, { desc = 'Toggle relativenumber' })
+    vim.o.relativenumber = not vim.o.relativenumber
+end, { desc = 'Toggle relativenumber' })
 
 set('n', '<A-l>', function()
-        local top = vim.fn.line('w0')
-        local bottom = vim.fn.line('w$')
-        local mid = math.floor((bottom + top) / 2)
+    local top = vim.fn.line('w0')
+    local bottom = vim.fn.line('w$')
+    local mid = math.floor((bottom + top) / 2)
 
-        --@param line: number
-        local set_current_line = function(line)
-            local curr_col = vim.api.nvim_win_get_cursor(0)[2]
-            vim.api.nvim_win_set_cursor(0, { line, curr_col })
-        end
+    --@param line: number
+    local set_current_line = function(line)
+        local curr_col = vim.api.nvim_win_get_cursor(0)[2]
+        vim.api.nvim_win_set_cursor(0, { line, curr_col })
+    end
 
-        local offset = vim.wo.scrolloff
-        local curr_line = vim.fn.line('.')
-        local new_line = (bottom <= offset and bottom)
+    local offset = vim.wo.scrolloff
+    local curr_line = vim.fn.line('.')
+    local new_line = (bottom <= offset and bottom)
         or (curr_line == bottom - offset and top + offset)
         or (curr_line >= mid and bottom - offset)
         or mid
-        set_current_line(new_line)
-    end, { desc = 'Emacs-like window cycling' })
+    set_current_line(new_line)
+end, { desc = 'Emacs-like window cycling' })
 
 set('n', '<A-x>', function()
-        local t = vim.api.nvim_get_current_line()
-        local first = t:find("%S") or 0
-        local last = #t or 0
+    local t = vim.api.nvim_get_current_line()
+    local first = t:find("%S") or 0
+    local last = #t or 0
 
-        local first_third = math.floor(first + (last - first) / 3)
-        local second_third = math.floor(first + 2 * (last - first) / 3)
+    local first_third = math.floor(first + (last - first) / 3)
+    local second_third = math.floor(first + 2 * (last - first) / 3)
 
-        local curr_col = vim.api.nvim_win_get_cursor(0)[2]
-        local new_col = (curr_col == last - 1 and first - 1)
+    local curr_col = vim.api.nvim_win_get_cursor(0)[2]
+    local new_col = (curr_col == last - 1 and first - 1)
         or (curr_col >= second_third and last)
         or (curr_col >= first_third and second_third)
         or first_third
 
-        vim.api.nvim_win_set_cursor(0, {
-            vim.api.nvim_win_get_cursor(0)[1],
-            new_col
-        })
-    end , { desc = 'Line cycling; inspired by Emacs window cycling' })
+    vim.api.nvim_win_set_cursor(0, {
+        vim.api.nvim_win_get_cursor(0)[1],
+        new_col
+    })
+end, { desc = 'Line cycling; inspired by Emacs window cycling' })
+
+set('n', '<C-f>', function()
+    if vim.fn.getcmdwintype() ~= '' then
+        vim.cmd('close')
+    else
+        vim.api.nvim_feedkeys(':' .. vim.api.nvim_replace_termcodes('<C-f>', true, false, true), 'n', false)
+        vim.schedule(function()
+            vim.cmd('resize 25')
+        end)
+    end
+end, { noremap = true, silent = true })
