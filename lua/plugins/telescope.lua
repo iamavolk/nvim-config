@@ -48,6 +48,8 @@ return {
                         ['<C-f>'] = 'preview_scrolling_right',
                         ['<C-b>'] = 'preview_scrolling_left',
                         ['<C-s>'] = 'toggle_selection',
+                        ['<Right>'] = 'add_selection',
+                        ['<Left>'] = 'remove_selection',
                     },
                 },
             },
@@ -73,7 +75,7 @@ return {
         local builtin = require 'telescope.builtin'
         vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
         vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-        vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+        vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = '[S]earch [F]iles' })
         vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
         vim.keymap.set({ 'n', 'v' }, '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
         vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -100,6 +102,7 @@ return {
                 -- This is where a variable was first declared, or where a function is defined, etc.
                 -- To jump back, press <C-t>.
                 vim.keymap.set('n', 'grd', builtin.lsp_definitions, { buffer = buf, desc = '[G]oto [D]efinition' })
+                vim.keymap.set('n', 'grD', vim.lsp.buf.declaration, { buffer = buf, desc = '[G]oto [D]eclaration' })
 
                 -- Fuzzy find all the symbols in your current document.
                 -- Symbols are things like variables, functions, types, etc.
@@ -113,13 +116,48 @@ return {
                 -- Useful when you're not sure what type a variable is and you want to see
                 -- the definition of its *type*, not where it was *defined*.
                 vim.keymap.set('n', 'grt', builtin.lsp_type_definitions, { buffer = buf, desc = '[G]oto [T]ype Definition' })
+
+
+                local map = function(keys, func, desc, mode)
+                    mode = mode or 'n'
+                    vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+                end
+
+                local client = vim.lsp.get_client_by_id(event.data.client_id)
+                if client and client:supports_method('textDocument/inlayHint', event.buf) then
+                    map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[T]oggle Inlay [H]ints')
+                end
+
+                if client and client:supports_method('textDocument/documentHighLight', event.buf) then
+                    local highlight_augroup = vim.api.nvim_create_augroup('lsp-cursor-hl', { clear = false })
+                    vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+                        buffer = event.buf,
+                        group = highlight_augroup,
+                        callback = vim.lsp.buf.document_highlight,
+                    })
+
+                    vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+                        buffer = event.buf,
+                        group = highlight_augroup,
+                        callback = vim.lsp.buf.clear_references,
+                    })
+
+                    vim.api.nvim_create_autocmd('LspDetach', {
+                        group = vim.api.nvim_create_augroup('lsp-cursor-hl', { clear = true }),
+                        callback = function(event2)
+                            vim.lsp.buf.clear_references()
+                            vim.api.nvim_clear_autocmds { group = 'lsp-cursor-hl', buffer = event2.buf }
+                        end,
+                    })
+                end
             end,
         })
 
         vim.keymap.set(
             'n',
-            '<leader><leader>',
-            function() builtin.buffers(require('telescope.themes').get_ivy({
+            '<leader>b',
+            -- function() builtin.buffers(require('telescope.themes').get_ivy({
+            function() builtin.buffers(require('telescope.themes').get_dropdown({
                 previewer = false,
             })) end,
             { desc = '' }
