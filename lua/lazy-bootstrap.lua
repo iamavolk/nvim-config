@@ -20,17 +20,25 @@ vim.opt.rtp:prepend(lazypath)
 local scheme = 'kanagawa-paper-ink'
 
 require('lazy').setup({
+        require 'plugins.colorschemes.kanagawa',
         require 'plugins.colorschemes.kanagawa-paper',
-        require 'plugins.mini-statusline',
-        require 'plugins.nvim-treesitter',
-        require 'plugins.yazi-nvim',
-        require 'plugins.ultimate-autopair',
         require 'plugins.gitsigns',
-        require 'plugins.which-key',
-        require 'plugins.telescope',
-        require 'plugins.nvim-cmp',
+        require 'plugins.inc-rename',
+        require 'plugins.incr-nvim',
         require 'plugins.indent-blankline-nvim',
+        require 'plugins.mini-statusline',
+        require 'plugins.nvim-cmp',
         require 'plugins.nvim-lspconfig',
+        require 'plugins.nvim-treesitter',
+        require 'plugins.telescope',
+        require 'plugins.ultimate-autopair',
+        require 'plugins.vimade',
+        require 'plugins.which-key',
+        require 'plugins.yazi-nvim',
+        require 'plugins.nvim-treesitter-textobjects',
+        require 'plugins.marks',
+        require 'plugins.nvim-surround',
+        -- require 'plugins.blink-cmp',
     },
 
     { install = { colorscheme = { scheme } } }
