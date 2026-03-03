@@ -2,7 +2,6 @@ return {
     "mikavilpas/yazi.nvim",
     version = "*",
     event = "VeryLazy",
-    dependencies = {{ "nvim-lua/plenary.nvim", lazy = true }},
     keys = {
         {
             "<leader>-",
@@ -29,10 +28,9 @@ return {
                 copy_relative_path_to_selected_files = false,
             },
             highlight_hovered_buffers_in_same_directory = false,
-            yazi_floating_window_border = 'none',
+            yazi_floating_window_border = 'bold',
             floating_window_scaling_factor = 0.90,
         })
-        vim.api.nvim_set_hl(0, "YaziFloat", { link = "NormalFloat" })
     end,
 }
 -- vim: ts=4 sts=4 sw=4 et
