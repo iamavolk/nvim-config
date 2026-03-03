@@ -117,6 +117,7 @@ set('n', '<leader>m', function()
   })
 end)
 
+set('n', 'Q', vim.lsp.buf.hover)
 set('n', '<leader>k', function ()
     vim.lsp.buf.hover({
         -- border = "rounded",
