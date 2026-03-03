@@ -1,7 +1,8 @@
 return {
     'daliusd/incr.nvim',
+    event = 'VeryLazy',
     opts = {
-        incr_key = '<C-m>',   -- increment selection key
-        decr_key = '<A-m>', -- decrement selection key
+        incr_key = '<C-m>',
+        decr_key = '<C-n>',
     },
 }
