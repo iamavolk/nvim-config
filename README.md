@@ -1,33 +1,48 @@
-# 🚀 Lean Neovim (v0.11.x) Config
+# 🚀 Functional and ergonomic Neovim (0.11+) config
 
-## Bootstrap
+## Plugin/package manager
 - `lazy-boostrap.lua` bootstraps lazy.nvim if not installed
 
+## Integrated plugins
+- [x] `gitsigns`
+- [x] `inc-rename`
+- [x] `incr-nvim`
+- [x] `indent-blankline-nvim`
+- [x] `mini-statusline`
+- [x] `nvim-cmp`
+- [x] `nvim-lspconfig`
+- [x] `nvim-treesitter`
+- [x] `telescope`
+- [x] `ultimate-autopair`
+- [x] `vimade`
+- [x] `which-key`
+- [x] `yazi-nvim`
+- [x] `nvim-treesitter-textobjects`
+- [x] `marks`
+- [x] `nvim-surround`
+
+## TODO
+- [ ] (WIP) Modular LSP organization
+- [ ] DAP
+- [ ] `blink.cmp` as a better/faster (Rust) alternative to `nvim-cmp`
+
 ## Keymaps
--  Heavily optimized for (slightly customized) Graphite layout 
+-  Heavily optimized for (slightly customized) Graphite layout
     mapped to TOTEM split keyboard
 
 ## News
-- `nvim-treesitter` is now on `main` branch; textobjects are not available
-- `telescope` bumped to 0.2
-- `nvim-cmp` vs `blink.cmp` (is all about) tradeoffs and balances
-- `yazi.nvim` brings `yazi` to nvim through embedded terminal. Works ok
-    for the most part with some peculiar edge cases. Overall, a nice
-    alternative to both `Oil` and `mini.files`
-
-## TODO
-- Modular (i.e. maintainable configurations for C, Rust, Zig, Python, and Lua) LSP integration
-- DAP
+- `nvim-treesitter` is now on `main` branch
+    (dropped incremental selection and some other functionality)
+- `telescope` v0.2
 
 ## Plugins to consider
 - `stevearc/conform.nvim`
 - `saghen/blink.cmp`
-- `nvim-mini/mini-surround`
-
-## Potenially add/rewrite config for/get rid of:
 - `fidget.nvim`
+
+## Lower priority
 - `mason.nvim`
-- `mason-tool-installer`
+- `mason-tool-installer` (might be useful for DAP)
 
 ## Future releases and associated points of interest (v0.12+)
 - native plugin manager (`pack`)
