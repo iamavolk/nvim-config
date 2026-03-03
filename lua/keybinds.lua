@@ -16,6 +16,7 @@ set('t', '<Esc>', '<C-\\><C-n>')
 
 set('i', '<C-Backspace>', '<C-w>', { desc = '' })
 set('i', '<C-Space>', '<Ignore>', { desc = '' })
+set('i', '<C-c>', '<Ignore>', { desc = '' })
 set('i', '<C-e>', '<End>', { desc = '' })
 
 set('n', '<C-x><C-s>', vim.cmd.update, { desc = 'Emacs-like buffer update' })
@@ -28,9 +29,9 @@ set('i', '<A-f>', '<C-o>W', { desc = '' })
 set('i', '<A-b>', '<C-o>B', { desc = '' })
 set('i', '<C-a>', '<C-o>0', { desc = '' })
 
-set('n', '<A-q>', '^', { desc = '' })
-set('n', '<A-c>', '$', { desc = '' })
-set('n', '<A-g><A-g>', 'Gzz', { desc = 'Goto last line and center the view' })
+set({ 'n', 'x' }, 'gh', '^', { desc = '' })
+set({ 'n', 'x' }, 'gi', '$', { desc = '' })
+set({ 'n', 'x' }, 'ge', 'Gzz', { desc = 'Goto last line and center the view' })
 
 set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
@@ -61,7 +62,7 @@ set('n', '<A-l>', function()
     local offset = vim.wo.scrolloff
     local curr_line = vim.fn.line('.')
     local new_line = (bottom <= offset and bottom)
-        or (curr_line == bottom - offset and top + offset)
+       or (curr_line == bottom - offset and top + offset)
         or (curr_line >= mid and bottom - offset)
         or mid
     set_current_line(new_line)
@@ -97,3 +98,49 @@ set('n', '<C-f>', function()
         end)
     end
 end, { noremap = true, silent = true })
+
+set('n', '<leader>e', function()
+  vim.diagnostic.open_float({
+    border = 'rounded',
+    header = '',
+    prefix = '',
+  })
+end)
+
+set('n', '<leader>m', function()
+  require('telescope.builtin').marks({
+    layout_strategy = 'center',
+    layout_config = {
+      width = 0.5,
+      height = 0.4,
+    },
+  })
+end)
+
+set('n', '<leader>k', function ()
+    vim.lsp.buf.hover({
+        -- border = "rounded",
+        border = {
+            { "╭", "HoverBoard" },
+            { "─", "HoverBoard" },
+            { "╮", "HoverBoard" },
+            { "│", "HoverBoard" },
+            { "╯", "HoverBoard" },
+            { "─", "HoverBoard" },
+            { "╰", "HoverBoard" },
+            { "│", "HoverBoard" },
+        },
+    })
+end)
+vim.api.nvim_set_hl(0, "HoverBoard", { fg = "#aaaaaa" })
+
+set('n', '<leader>d', function()
+    local config = vim.diagnostic.config()
+    vim.diagnostic.config({
+        virtual_text = not config.virtual_text and {
+            prefix = ' 󰃤',
+        }
+    })
+end)
+
+set('n', '<leader>rn', ':IncRename ')
