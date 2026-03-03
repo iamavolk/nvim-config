@@ -43,6 +43,7 @@ return {
                 mappings = {
                 -- i = { ['<c-enter>'] = 'to_fuzzy_refine' },
                     i = {
+                        ['<C-d>'] = 'delete_buffer',
                         ['<C-m>'] = select_one_or_multi,
                         -- ['<C-m>'] = 'select_default',
                         ['<C-f>'] = 'preview_scrolling_right',
