@@ -15,7 +15,7 @@ return {
 
                 -- filename string
                 local fstring =
-                (modes.small_window() and '%f' or '%F') .. ' ' ..
+                (modes.small_window() and ' %f' or ' %F') .. ' ' ..
                 (modes.modified()) ..
                 '%r'
 
@@ -32,7 +32,7 @@ return {
             local filename      = set_filename({ trunc_width = 140 })
             local git           = statusline.section_git({ trunc_width = 50 })
             local location      = set_location()
-            local lsp           = statusline.section_lsp({ trunc_width = 75, icon = '✨' })
+            local lsp           = statusline.section_lsp({ trunc_width = 75, icon = '🧩' })
             local mode, mode_hl = statusline.section_mode({ trunc_width = 120 })
             local search        = statusline.section_searchcount({ trunc_width = 75 })
 
