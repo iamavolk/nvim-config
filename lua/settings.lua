@@ -19,7 +19,7 @@ vim.opt.cursorline      = true
 vim.opt.expandtab       = true -- all tabs replaced by spaces
 vim.opt.foldcolumn      = '2'
 vim.opt.ignorecase      = true
-vim.opt.inccommand      = 'split'
+vim.opt.inccommand      = 'nosplit'
 vim.opt.list            = true  -- visible tabs, trailing chars, etc.
 vim.opt.listchars       = { tab = '» ', trail = '·' }
 --vim.opt.listchars       = { tab = '» ', trail = '·', nbsp = '␣', eol = '' }
