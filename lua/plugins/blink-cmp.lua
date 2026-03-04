@@ -27,11 +27,14 @@ return {
         keymap = {
             preset = 'default',
 
+            ['<C-n>'] = { 'select_next', 'fallback' },
+            ['<C-p>'] = { 'select_prev', 'fallback' },
+
             ['<C-f>'] = { 'snippet_forward', 'fallback' },
             ['<C-b>'] = { 'snippet_backward', 'fallback' },
 
-            ['<C-n>'] = { 'scroll_documentation_down', 'fallback' },
-            ['<C-p>'] = { 'scroll_documentation_up', 'fallback' },
+            ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
+            ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
 
             ['<C-q>'] = { 'hide_signature' },
             ['<C-m>'] = { 'show', 'show_documentation', 'fallback' },
