@@ -27,7 +27,6 @@ require('lazy').setup({
         require 'plugins.incr-nvim',
         require 'plugins.indent-blankline-nvim',
         require 'plugins.mini-statusline',
-        require 'plugins.nvim-cmp',
         require 'plugins.nvim-lspconfig',
         require 'plugins.nvim-treesitter',
         require 'plugins.telescope',
@@ -38,7 +37,8 @@ require('lazy').setup({
         require 'plugins.nvim-treesitter-textobjects',
         require 'plugins.marks',
         require 'plugins.nvim-surround',
-        -- require 'plugins.blink-cmp',
+        require 'plugins.blink-cmp',
+        -- require 'plugins.nvim-cmp',
     },
 
     { install = { colorscheme = { scheme } } }
