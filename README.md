@@ -1,43 +1,44 @@
 # 🚀 Functional and ergonomic Neovim (0.11+) config
 
 ## Plugin/package manager
-- `lazy-boostrap.lua` bootstraps lazy.nvim if not installed
+- Lazy (`lazy-boostrap.lua` bootstraps lazy.nvim if not installed)
 
 ## Integrated plugins
-- [x] `gitsigns`
-- [x] `inc-rename`
-- [x] `incr-nvim`
-- [x] `indent-blankline-nvim`
-- [x] `mini-statusline`
-- [x] `nvim-cmp`
-- [x] `nvim-lspconfig`
-- [x] `nvim-treesitter`
-- [x] `telescope`
-- [x] `ultimate-autopair`
-- [x] `vimade`
-- [x] `which-key`
-- [x] `yazi-nvim`
-- [x] `nvim-treesitter-textobjects`
-- [x] `marks`
-- [x] `nvim-surround`
+- [x] `gitsigns` (comprehensive integrated git functionality)
+- [x] `inc-rename` (visual renaming with pseudo-multicursors)
+- [x] `incr-nvim` (incremental selection of treesitter nodes)
+- [x] `indent-blankline-nvim` (indentline guides)
+- [x] `mini-statusline`(status line)
+- [x] `nvim-cmp` (Lua-based completion engine)
+- [x] `nvim-lspconfig` (community-maintained repo of LSP configs)
+- [x] `nvim-treesitter` (glue-code plugin between treesitter and buffers)
+- [x] `telescope` (comprehensive fuzzy-finder and picker/UI provider)
+- [x] `ultimate-autopair` (QoL autopair provider)
+- [x] `vimade` (QoL window/view UI provider)
+- [x] `which-key` (hello emacs)
+- [x] `yazi-nvim` (yazi inside nvim)
+- [x] `nvim-treesitter-textobjects` (platform for crafting one's own way of structured code editing)
+- [x] `marks` (brings vim's marks to the surface)
+- [x] `nvim-surround` (surround and friends w/o vim-golf)
+- [x] `blink.cmp` (Rust-based completion engine)
+- [x] `fidget.nvim` (unobtrusive LSP notifications UI)
+
 
 ## TODO
 - [ ] (WIP) Modular LSP organization
 - [ ] DAP
-- [ ] `blink.cmp` as a better/faster (Rust) alternative to `nvim-cmp`
 
 ## Keymaps
--  Heavily optimized for (slightly customized) Graphite layout
+-  Heavily optimized for (a slightly customized) Graphite layout
     mapped to TOTEM split keyboard
 
 ## News
-- `nvim-treesitter` is now on `main` branch
+- `nvim-treesitter` is now on `main` branch  
     (dropped incremental selection and some other functionality)
-- `telescope` v0.2
+- `telescope` is on v0.2
 
 ## Plugins to consider
 - `stevearc/conform.nvim`
-- `saghen/blink.cmp`
 - `fidget.nvim`
 
 ## Lower priority
