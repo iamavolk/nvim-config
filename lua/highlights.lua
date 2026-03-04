@@ -14,6 +14,7 @@ set(0, "NormalFloat", { link = "Normal" })
 set(0, 'FloatBorder', { fg = '#363646', bg = '#181820', blend = 0 })
 set(0, "WhichKeyBorder", { fg = '#999999', bg = '#1f1f28' })
 set(0, 'WhichKeyValue', { link = 'MarkdownCode' })
+set(0, 'BlinkCmpDoc', { bg = '#181820' })
 
 -- TODO: doesn't work within the plugin's setup. Need to figure out
 -- the right place for
