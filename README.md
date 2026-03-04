@@ -39,6 +39,8 @@
 
 ## Plugins to consider
 - [conform.nvim](https://github.com/stevearc/conform.nvim)
+- [possession](https://github.com/gennaro-tedesco/nvim-possession)
+- [auto-session](https://github.com/rmagatti/auto-session)
 
 ## Lower priority
 - [mason.nvim](https://github.com/mason-org/mason.nvim)
