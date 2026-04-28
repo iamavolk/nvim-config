@@ -15,19 +15,18 @@ set('n', '<C-h>', '<C-x>')
 set('t', '<Esc>', '<C-\\><C-n>')
 
 set('i', '<C-Backspace>', '<C-w>', { desc = '' })
-set('i', '<C-Space>', '<Ignore>', { desc = '' })
+set('i', '<C-Space>', '<Space>', { desc = '' })
 set('i', '<C-c>', '<Ignore>', { desc = '' })
 set('i', '<C-e>', '<End>', { desc = '' })
+set('i', '<C-S-e>', '<End>', { desc = '' })
+set('i', '<C-a>', '<Home>', { desc = '' })
 
 set('n', '<C-x><C-s>', vim.cmd.update, { desc = 'Emacs-like buffer update' })
 set('n', '<C-q><C-q><C-q>', vim.cmd.qall, { desc = '' })
 set('n', '<C-p>', ':= ', { desc = '' })
 
--- Below keymaps creatively expand on the default ones
--- taking advantage of the underutilized Meta/Alt namespace
 set('i', '<A-f>', '<C-o>W', { desc = '' })
 set('i', '<A-b>', '<C-o>B', { desc = '' })
-set('i', '<C-a>', '<C-o>0', { desc = '' })
 
 set({ 'n', 'x' }, 'gh', '^', { desc = '' })
 set({ 'n', 'x' }, 'gi', '$', { desc = '' })
@@ -96,6 +95,7 @@ set('n', '<C-f>', function()
         vim.schedule(function()
             vim.cmd('resize 25')
         end)
+        -- vim.cmd('resize 25')
     end
 end, { noremap = true, silent = true })
 
@@ -145,3 +145,17 @@ set('n', '<leader>d', function()
 end)
 
 set('n', '<leader>rn', ':IncRename ')
+set('n', '<leader>tv', ':VimadeToggle<CR>', { desc = '[T]oggle [V]imade (window tint)' })
+set('n', '<C-w><C-t>', ':tabnew<CR>', { desc = 'new [t]ab' })
+set({'n', 'o'}, ')', 'gt',  { desc = '' })
+set({'n', 'o'}, '(', 'gT',  { desc = '' })
+
+set("n", "kd", "<Plug>(nvim-surround-delete)", {
+    desc = "Delete a surrounding pair",
+})
+set("n", "ks", "<Plug>(nvim-surround-change)", {
+    desc = "Change a surrounding pair",
+})
+set("x", "k", "<Plug>(nvim-surround-visual)", {
+    desc = "Add a surrounding pair around a visual selection",
+})
