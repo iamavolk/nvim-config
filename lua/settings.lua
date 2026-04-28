@@ -5,6 +5,7 @@ vim.g.mapleader         = ' '
 vim.g.maplocalleader    = ' '
 vim.g.have_nerd_font    = true
 vim.g.indentLine_bufTypeExclude = { 'terminal' }
+vim.g.nvim_surround_no_mappings = true
 
 
 --[[--------------------
