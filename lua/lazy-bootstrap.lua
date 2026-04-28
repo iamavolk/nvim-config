@@ -39,6 +39,7 @@ require('lazy').setup({
         require 'plugins.nvim-surround',
         require 'plugins.blink-cmp',
         require 'plugins.fidget',
+        require 'plugins.codediff',
         -- require 'plugins.nvim-cmp',
     },
 
