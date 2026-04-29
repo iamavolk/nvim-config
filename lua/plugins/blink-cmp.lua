@@ -40,6 +40,7 @@ return {
             ['<C-m>'] = { 'show', 'show_documentation', 'fallback' },
             ['<C-h>'] = { 'hide_documentation', 'hide', 'fallback' },
 
+            ['<C-space>'] = false,
             -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion):
             --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },

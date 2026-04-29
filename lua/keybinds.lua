@@ -159,3 +159,8 @@ set("n", "ks", "<Plug>(nvim-surround-change)", {
 set("x", "k", "<Plug>(nvim-surround-visual)", {
     desc = "Add a surrounding pair around a visual selection",
 })
+
+vim.keymap.set('i', '<C-l>', function ()
+    local line = vim.api.nvim_win_get_cursor(0)[1]
+    vim.api.nvim_buf_set_lines(0, line, line, false, {''})
+end, { desc = '' })

@@ -1,9 +1,5 @@
 return {
     "neovim/nvim-lspconfig",
-    dependencies = {
-        'hrsh7th/cmp-nvim-lsp',
-        -- "saghen/blink.cmp",
-    },
     config = function()
 
         vim.diagnostic.config {
@@ -52,13 +48,13 @@ return {
             --[[ TODO: extra capabilities might already be implemented in nvim core
             --   Hence, this might not be needed anymore
             --]]
-            capabilities = vim.tbl_deep_extend( 'force',
-                vim.lsp.protocol.make_client_capabilities(),
-                require('cmp_nvim_lsp').default_capabilities()),
+            -- capabilities = vim.tbl_deep_extend( 'force',
+            --     vim.lsp.protocol.make_client_capabilities(),
+            --     require('cmp_nvim_lsp').default_capabilities()),
                 -- require("blink.cmp").get_lsp_capabilities()),
         })
 
         vim.lsp.enable('lua_ls')
-        vim.lsp.enable('ty')
+        -- vim.lsp.enable('ty')
     end,
 }

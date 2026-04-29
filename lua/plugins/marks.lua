@@ -4,6 +4,10 @@ return {
     config = function()
         require("marks").setup({
             refresh_interval = 350,
+            default_mappings = false,
+            mappings = {
+                delete = "k",
+            }
         })
         vim.api.nvim_set_hl(0, "MarkSignHL", { fg = "#cc5555" })
         vim.keymap.set('n', '<A-m>', require('marks').delete_line)

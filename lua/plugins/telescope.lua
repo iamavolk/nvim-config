@@ -43,7 +43,7 @@ return {
                 mappings = {
                 -- i = { ['<c-enter>'] = 'to_fuzzy_refine' },
                     i = {
-                        ['<C-d>'] = 'delete_buffer',
+                        ['<C-x>'] = 'delete_buffer',
                         ['<C-m>'] = select_one_or_multi,
                         -- ['<C-m>'] = 'select_default',
                         ['<C-f>'] = 'preview_scrolling_right',
@@ -51,6 +51,8 @@ return {
                         ['<C-s>'] = 'toggle_selection',
                         ['<Right>'] = 'add_selection',
                         ['<Left>'] = 'remove_selection',
+                        ['<C-e>'] = 'preview_scrolling_down',
+                        ['<C-y>'] = 'preview_scrolling_up',
                     },
                 },
             },
@@ -124,13 +126,14 @@ return {
                     vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
                 end
 
+
                 local client = vim.lsp.get_client_by_id(event.data.client_id)
                 if client and client:supports_method('textDocument/inlayHint', event.buf) then
                     map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[T]oggle Inlay [H]ints')
                 end
 
                 if client and client:supports_method('textDocument/documentHighLight', event.buf) then
-                    local highlight_augroup = vim.api.nvim_create_augroup('lsp-cursor-hl', { clear = false })
+                    local highlight_augroup = vim.api.nvim_create_augroup('lsp-cursor-hi', { clear = false })
                     vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
                         buffer = event.buf,
                         group = highlight_augroup,
@@ -144,11 +147,12 @@ return {
                     })
 
                     vim.api.nvim_create_autocmd('LspDetach', {
-                        group = vim.api.nvim_create_augroup('lsp-cursor-hl', { clear = true }),
+                        group = vim.api.nvim_create_augroup('lsp-cursor-detach', { clear = true }),
                         callback = function(event2)
                             vim.lsp.buf.clear_references()
-                            vim.api.nvim_clear_autocmds { group = 'lsp-cursor-hl', buffer = event2.buf }
+                            vim.api.nvim_clear_autocmds { group = 'lsp-cursor-hi', buffer = event2.buf }
                         end,
+                        desc = 'HLLLLL',
                     })
                 end
             end,
