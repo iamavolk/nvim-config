@@ -28,9 +28,9 @@ set('n', '<C-p>', ':= ', { desc = '' })
 set('i', '<A-f>', '<C-o>W', { desc = '' })
 set('i', '<A-b>', '<C-o>B', { desc = '' })
 
-set({ 'n', 'x' }, 'gh', '^', { desc = '' })
-set({ 'n', 'x' }, 'gi', '$', { desc = '' })
-set({ 'n', 'x' }, 'ge', 'Gzz', { desc = 'Goto last line and center the view' })
+set({ 'n', 'x', 'o' }, 'gh', '^', { desc = '' })
+set({ 'n', 'x', 'o' }, 'gi', '$', { desc = '' })
+set({ 'n', 'x', 'o' }, 'ge', 'Gzz', { desc = 'Goto last line and center the view' })
 
 set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
@@ -144,7 +144,6 @@ set('n', '<leader>d', function()
     })
 end)
 
-set('n', '<leader>rn', ':IncRename ')
 set('n', '<leader>zz', ':VimadeToggle<CR>', { desc = '[T]oggle [V]imade (window tint)' })
 set('n', '<leader>tt', ':term<CR>', { desc = '' })
 set('n', '<C-w><C-t>', ':tabnew<CR>', { desc = 'new [t]ab' })
@@ -165,3 +164,9 @@ vim.keymap.set('i', '<C-l>', function ()
     local line = vim.api.nvim_win_get_cursor(0)[1]
     vim.api.nvim_buf_set_lines(0, line, line, false, {''})
 end, { desc = '' })
+
+vim.keymap.set('n', '/', function()
+    local top_line = vim.fn.line('w0') - 1
+    local bottom_line = vim.fn.line('w$') + 1
+    return '/\\%>' .. top_line .. 'l\\%<' .. bottom_line .. 'l'
+end, { expr = true, desc = "Search in viewport; requires incsearch to be off for ergonomics" })

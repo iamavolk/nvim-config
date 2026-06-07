@@ -21,6 +21,7 @@ vim.opt.expandtab       = true -- all tabs replaced by spaces
 vim.opt.foldcolumn      = '2' -- fixed, less mentally taxing
 vim.opt.ignorecase      = true
 vim.opt.inccommand      = 'nosplit' -- live feedback on substitution, etc. in cmd mode
+vim.opt.incsearch       = false
 vim.opt.list            = true  -- visible tabs, trailing chars, etc.
 vim.opt.listchars       = { tab = '» ', trail = '·' } -- nbsp = '␣', eol = ''
 vim.opt.mouse           = 'a'   -- default is "nvi", whereas "a" stands for "nvich" (command-line mode [c], and all previous when help file is edited [h])
