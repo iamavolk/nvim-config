@@ -22,6 +22,7 @@ local scheme = 'kanagawa-paper-ink'
 require('lazy').setup({
         require 'plugins.colorschemes.kanagawa',
         require 'plugins.colorschemes.kanagawa-paper',
+        require 'plugins.colorschemes.koda',
         require 'plugins.gitsigns',
         require 'plugins.inc-rename',
         require 'plugins.incr-nvim',
@@ -40,7 +41,6 @@ require('lazy').setup({
         require 'plugins.blink-cmp',
         require 'plugins.fidget',
         require 'plugins.codediff',
-        -- require 'plugins.nvim-cmp',
     },
 
     { install = { colorscheme = { scheme } } }
