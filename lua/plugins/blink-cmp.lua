@@ -37,7 +37,7 @@ return {
             ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
 
             ['<C-q>'] = { 'hide_signature' },
-            ['<C-m>'] = { 'show', 'show_documentation', 'fallback' },
+            ['<C-s>'] = { 'show', 'show_documentation', 'fallback' },
             ['<C-h>'] = { 'hide_documentation', 'hide', 'fallback' },
 
             ['<C-space>'] = false,
