@@ -25,7 +25,6 @@ require('lazy').setup({
         require 'plugins.colorschemes.koda',
         require 'plugins.gitsigns',
         require 'plugins.inc-rename',
-        require 'plugins.incr-nvim',
         require 'plugins.indent-blankline-nvim',
         require 'plugins.mini-statusline',
         require 'plugins.nvim-lspconfig',

@@ -25,8 +25,8 @@ set('n', '<C-x><C-s>', vim.cmd.update, { desc = 'Emacs-like buffer update' })
 set('n', '<C-q><C-q><C-q>', vim.cmd.qall, { desc = '' })
 set('n', '<C-p>', ':= ', { desc = '' })
 
-set('i', '<A-f>', '<C-o>W', { desc = '' })
-set('i', '<A-b>', '<C-o>B', { desc = '' })
+-- set('i', '<A-f>', '<C-o>W', { desc = '' })
+-- set('i', '<A-b>', '<C-o>B', { desc = '' })
 
 set({ 'n', 'x', 'o' }, 'gh', '^', { desc = '' })
 set({ 'n', 'x', 'o' }, 'gi', '$', { desc = '' })
@@ -117,7 +117,6 @@ set('n', '<leader>m', function()
   })
 end)
 
-set('n', 'Q', vim.lsp.buf.hover)
 set('n', '<leader>k', function ()
     vim.lsp.buf.hover({
         -- border = "rounded",
@@ -165,8 +164,29 @@ vim.keymap.set('i', '<C-l>', function ()
     vim.api.nvim_buf_set_lines(0, line, line, false, {''})
 end, { desc = '' })
 
-vim.keymap.set('n', '/', function()
-    local top_line = vim.fn.line('w0') - 1
-    local bottom_line = vim.fn.line('w$') + 1
-    return '/\\%>' .. top_line .. 'l\\%<' .. bottom_line .. 'l'
-end, { expr = true, desc = "Search in viewport; requires incsearch to be off for ergonomics" })
+-- vim.keymap.set('n', '/', function()
+--     local top_line = vim.fn.line('w0') - 1
+--     local bottom_line = vim.fn.line('w$') + 1
+--     return '/\\%>' .. top_line .. 'l\\%<' .. bottom_line .. 'l'
+-- end, { expr = true, desc = "Search in viewport; requires incsearch to be off for ergonomics" })
+
+vim.keymap.set('n', '<C-m>', function() 
+    if vim.fn.getcmdwintype() == ":" then 
+        vim.api.nvim_feedkeys("\r", "n", false)
+        return
+    end
+    vim.api.nvim_feedkeys('van', '', false)
+end, {})
+
+vim.keymap.set('v', '<C-m>', function() 
+    vim.api.nvim_feedkeys('an', 'v', false)
+end, {})
+
+
+vim.keymap.set('n', '<C-n>', function()
+    vim.api.nvim_feedkeys('vin', 'n', false)
+end, {})
+
+vim.keymap.set('v', '<C-n>', function() 
+    vim.api.nvim_feedkeys('in', 'v', false)
+end, {})
