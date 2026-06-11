@@ -8,31 +8,31 @@ local set = vim.keymap.set
 set('n', '<C-x><C-x>', '<cmd>source %<CR>')
 set('n', '<Space>x', ':.lua<CR>')
 set('v', '<Space>x', ':lua<CR>')
+set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 set('n', '<A-n>', ':cnext<CR>')
 set('n', '<A-p>', ':cprev<CR>')
-set('n', '<C-h>', '<C-x>')
 set('t', '<Esc>', '<C-\\><C-n>')
+set('n', '<C-w><C-t>', ':tabnew<CR>', { desc = 'New tab' })
+set({'n', 'o'}, ')', 'gt',  { desc = 'Next tab' })
+set({'n', 'o'}, '(', 'gT',  { desc = 'Prev tab' })
 
 set('i', '<C-Backspace>', '<C-w>', { desc = '' })
-set('i', '<C-Space>', '<Space>', { desc = '' })
-set('i', '<C-c>', '<Ignore>', { desc = '' })
-set('i', '<C-e>', '<End>', { desc = '' })
-set('i', '<C-S-e>', '<End>', { desc = '' })
-set('i', '<C-a>', '<Home>', { desc = '' })
+set('i', '<C-Space>', '<Space>', { desc = 'Has to do with keyd daemon quirks' })
+-- set('i', '<C-c>', '<Ignore>', { desc = '' }) -- this was to deal with musc memory
+set('i', '<C-e>', '<C-Right>', { desc = 'Move right by word w/o leaving Insert Mode' })
+set('i', '<C-a>', '<C-Left>', { desc = 'Move left by word w/o leaving Insert Mode' })
 
-set('n', '<C-x><C-s>', vim.cmd.update, { desc = 'Emacs-like buffer update' })
-set('n', '<C-q><C-q><C-q>', vim.cmd.qall, { desc = '' })
-set('n', '<C-p>', ':= ', { desc = '' })
+set('n', '<C-x><C-s>', vim.cmd.update, { desc = 'Save to same file' })
+set('n', '<C-q><C-q>', ":qall!<CR>", { desc = 'Exit all, ignore changes' })
 
--- set('i', '<A-f>', '<C-o>W', { desc = '' })
--- set('i', '<A-b>', '<C-o>B', { desc = '' })
-
-set({ 'n', 'x', 'o' }, 'gh', '^', { desc = '' })
-set({ 'n', 'x', 'o' }, 'gi', '$', { desc = '' })
+-- Helix-aligned bindings
+set('n', '>', '>>', {})
+set('n', '<', '<<', {})
+set({ 'n', 'x', 'o' }, 'l', '^', { desc = '' })
+set({ 'n', 'x', 'o' }, 'j', '$', { desc = '' })
 set({ 'n', 'x', 'o' }, 'ge', 'Gzz', { desc = 'Goto last line and center the view' })
 
-set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Move split windows around
 set('n', '<S-Left>', '<C-w>H', { desc = 'Move Left' })
@@ -40,12 +40,12 @@ set('n', '<S-Right>', '<C-w>L', { desc = 'Move Right' })
 set('n', '<S-Down>', '<C-w>J', { desc = 'Move Down' })
 set('n', '<S-Up>', '<C-w>K', { desc = 'Move Up' })
 
-set('n', '<C-k>', '5<C-y>', { desc = '' })
-set('n', '<C-.>', '5<C-e>', { desc = '' })
+set('n', '<C-k>', '4<C-y>', { desc = '' })
+set('n', '<C-.>', '4<C-e>', { desc = '' })
 
 set('n', '<C-j>', function()
     vim.o.relativenumber = not vim.o.relativenumber
-end, { desc = 'Toggle relativenumber' })
+end, { desc = 'Toggle relative line numbers' })
 
 set('n', '<A-l>', function()
     local top = vim.fn.line('w0')
@@ -95,9 +95,8 @@ set('n', '<C-f>', function()
         vim.schedule(function()
             vim.cmd('resize 25')
         end)
-        -- vim.cmd('resize 25')
     end
-end, { noremap = true, silent = true })
+end, { desc = 'Treat cmd line as a first-class citizen', noremap = true, silent = true })
 
 set('n', '<leader>e', function()
   vim.diagnostic.open_float({
@@ -105,7 +104,7 @@ set('n', '<leader>e', function()
     header = '',
     prefix = '',
   })
-end)
+end, { desc = '' })
 
 set('n', '<leader>m', function()
   require('telescope.builtin').marks({
@@ -115,9 +114,10 @@ set('n', '<leader>m', function()
       height = 0.4,
     },
   })
-end)
+end, { desc = 'A more detailed view of the currently set marks' })
 
 set('n', '<leader>k', function ()
+    vim.api.nvim_set_hl(0, "HoverBoard", { fg = "#aaaaaa" })
     vim.lsp.buf.hover({
         -- border = "rounded",
         border = {
@@ -131,8 +131,7 @@ set('n', '<leader>k', function ()
             { "│", "HoverBoard" },
         },
     })
-end)
-vim.api.nvim_set_hl(0, "HoverBoard", { fg = "#aaaaaa" })
+end, { desc = 'Hover with border' })
 
 set('n', '<leader>d', function()
     local config = vim.diagnostic.config()
@@ -141,13 +140,10 @@ set('n', '<leader>d', function()
             prefix = ' 󰃤',
         }
     })
-end)
+end, { desc = 'Toggle pollution of buffer with existing diag msgs' })
 
 set('n', '<leader>zz', ':VimadeToggle<CR>', { desc = '[T]oggle [V]imade (window tint)' })
-set('n', '<leader>tt', ':term<CR>', { desc = '' })
-set('n', '<C-w><C-t>', ':tabnew<CR>', { desc = 'new [t]ab' })
-set({'n', 'o'}, ')', 'gt',  { desc = '' })
-set({'n', 'o'}, '(', 'gT',  { desc = '' })
+set('n', '<leader>tt', ':term<CR>', { desc = 'Invoke terminal emulator' })
 
 set("n", "kd", "<Plug>(nvim-surround-delete)", {
     desc = "Delete a surrounding pair",
@@ -159,18 +155,13 @@ set("x", "k", "<Plug>(nvim-surround-visual)", {
     desc = "Add a surrounding pair around a visual selection",
 })
 
-vim.keymap.set('i', '<C-l>', function ()
+set('i', '<C-l>', function ()
     local line = vim.api.nvim_win_get_cursor(0)[1]
     vim.api.nvim_buf_set_lines(0, line, line, false, {''})
-end, { desc = '' })
+end, { desc = 'Same as ]<space> but in Insert mode' })
 
--- vim.keymap.set('n', '/', function()
---     local top_line = vim.fn.line('w0') - 1
---     local bottom_line = vim.fn.line('w$') + 1
---     return '/\\%>' .. top_line .. 'l\\%<' .. bottom_line .. 'l'
--- end, { expr = true, desc = "Search in viewport; requires incsearch to be off for ergonomics" })
-
-vim.keymap.set('n', '<C-m>', function() 
+-- Rudimentary TSTree navigation
+set('n', '<C-a>', function() 
     if vim.fn.getcmdwintype() == ":" then 
         vim.api.nvim_feedkeys("\r", "n", false)
         return
@@ -178,15 +169,31 @@ vim.keymap.set('n', '<C-m>', function()
     vim.api.nvim_feedkeys('van', '', false)
 end, {})
 
-vim.keymap.set('v', '<C-m>', function() 
+set('v', '<C-a>', function() 
     vim.api.nvim_feedkeys('an', 'v', false)
 end, {})
 
 
-vim.keymap.set('n', '<C-n>', function()
+set('n', '<C-t>', function()
     vim.api.nvim_feedkeys('vin', 'n', false)
 end, {})
 
-vim.keymap.set('v', '<C-n>', function() 
+set('v', '<C-t>', function() 
     vim.api.nvim_feedkeys('in', 'v', false)
+end, {})
+
+set('n', '<C-n>', function ()
+    vim.api.nvim_feedkeys('v]n', '', false)
+end, {})
+
+set('v', '<C-n>', function ()
+    vim.api.nvim_feedkeys(']n', 'v', false)
+end, {})
+
+set('n', '<C-p>', function ()
+    vim.api.nvim_feedkeys('v[n', '', false)
+end, {})
+
+set('v', '<C-p>', function ()
+    vim.api.nvim_feedkeys('[n', 'v', false)
 end, {})
