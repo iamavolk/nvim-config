@@ -1,10 +1,12 @@
 return {
     'saghen/blink.cmp',
-    event = 'VimEnter',
+    -- event = 'VimEnter',
+    event = "VeryLazy",
     version = '1.*',
     dependencies = {
         {
             'L3MON4D3/LuaSnip',
+            event = "VeryLazy",
             version = '2.*',
             -- for snipper writing purposes:
             build = (function()
@@ -14,6 +16,7 @@ return {
             dependencies = {
                 {
                     'rafamadriz/friendly-snippets',
+                    event = "VeryLazy",
                     config = function()
                         require('luasnip.loaders.from_vscode').lazy_load()
                     end,

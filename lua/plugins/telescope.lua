@@ -1,6 +1,6 @@
 return {
     'nvim-telescope/telescope.nvim',
-
+    event = "VeryLazy",
     dependencies = {
         { 'nvim-lua/plenary.nvim' },
         { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -132,29 +132,29 @@ return {
                     map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[T]oggle Inlay [H]ints')
                 end
 
-                if client and client:supports_method('textDocument/documentHighLight', event.buf) then
-                    local highlight_augroup = vim.api.nvim_create_augroup('lsp-cursor-hi', { clear = false })
-                    vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-                        buffer = event.buf,
-                        group = highlight_augroup,
-                        callback = vim.lsp.buf.document_highlight,
-                    })
-
-                    vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-                        buffer = event.buf,
-                        group = highlight_augroup,
-                        callback = vim.lsp.buf.clear_references,
-                    })
-
-                    vim.api.nvim_create_autocmd('LspDetach', {
-                        group = vim.api.nvim_create_augroup('lsp-cursor-detach', { clear = true }),
-                        callback = function(event2)
-                            vim.lsp.buf.clear_references()
-                            vim.api.nvim_clear_autocmds { group = 'lsp-cursor-hi', buffer = event2.buf }
-                        end,
-                        desc = 'HLLLLL',
-                    })
-                end
+                -- if client and client:supports_method('textDocument/documentHighLight', event.buf) then
+                --     local highlight_augroup = vim.api.nvim_create_augroup('lsp-cursor-hi', { clear = false })
+                --     vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+                --         buffer = event.buf,
+                --         group = highlight_augroup,
+                --         callback = vim.lsp.buf.document_highlight,
+                --     })
+                --
+                --     vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+                --         buffer = event.buf,
+                --         group = highlight_augroup,
+                --         callback = vim.lsp.buf.clear_references,
+                --     })
+                --
+                --     vim.api.nvim_create_autocmd('LspDetach', {
+                --         group = vim.api.nvim_create_augroup('lsp-cursor-detach', { clear = true }),
+                --         callback = function(event2)
+                --             vim.lsp.buf.clear_references()
+                --             vim.api.nvim_clear_autocmds { group = 'lsp-cursor-hi', buffer = event2.buf }
+                --         end,
+                --         desc = 'HLLLLL',
+                --     })
+                -- end
             end,
         })
 

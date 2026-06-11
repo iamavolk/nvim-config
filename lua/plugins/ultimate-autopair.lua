@@ -14,7 +14,7 @@ return {
         bs = { map = { '<BS>', '<C-h>' } },
         cr = { map = '<C-m>' },
         close = { map='<A-a>' },
-        tabout = { enable = true, map = '<C-a>', hopout = true },
+        -- tabout = { enable = true, map = '<C-a>', hopout = true },
     }
 }
 -- vim: ts=4 sts=4 sw=4 et

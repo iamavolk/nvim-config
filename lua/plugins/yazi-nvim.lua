@@ -1,7 +1,7 @@
 return {
     "mikavilpas/yazi.nvim",
     version = "*",
-    event = "VeryLazy",
+    event = "CmdlineEnter",
     keys = {
         {
             "<leader>-",
