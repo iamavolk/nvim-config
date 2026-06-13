@@ -4,7 +4,6 @@
 
 local set = vim.keymap.set
 
--- vim.keymap.set('t', '<C-i>', '<C-\\><C-n><cmd>echo bufname("%")<CR>', { noremap = true })
 set('n', '<C-x><C-x>', '<cmd>source %<CR>')
 set('n', '<Space>x', ':.lua<CR>')
 set('v', '<Space>x', ':lua<CR>')
@@ -19,9 +18,13 @@ set({'n', 'o'}, '(', 'gT',  { desc = 'Prev tab' })
 
 set('i', '<C-Backspace>', '<C-w>', { desc = '' })
 set('i', '<C-Space>', '<Space>', { desc = 'Has to do with keyd daemon quirks' })
--- set('i', '<C-c>', '<Ignore>', { desc = '' }) -- this was to deal with musc memory
-set('i', '<C-e>', '<C-Right>', { desc = 'Move right by word w/o leaving Insert Mode' })
 set('i', '<C-a>', '<C-Left>', { desc = 'Move left by word w/o leaving Insert Mode' })
+set('i', '<C-e>', function ()
+    vim.api.nvim_feedkeys(
+        vim.api.nvim_replace_termcodes('<C-o>E<Right>', true, true, true),
+        'i',
+        false)
+end, { desc = 'Move right by word w/o leaving Insert Mode' })
 
 set('n', '<C-x><C-s>', vim.cmd.update, { desc = 'Save to same file' })
 set('n', '<C-q><C-q>', ":qall!<CR>", { desc = 'Exit all, ignore changes' })
@@ -40,8 +43,8 @@ set('n', '<S-Right>', '<C-w>L', { desc = 'Move Right' })
 set('n', '<S-Down>', '<C-w>J', { desc = 'Move Down' })
 set('n', '<S-Up>', '<C-w>K', { desc = 'Move Up' })
 
-set('n', '<C-k>', '4<C-y>', { desc = '' })
-set('n', '<C-.>', '4<C-e>', { desc = '' })
+set({ 'n', 'v' }, '<C-k>', '4<C-y>', { desc = '' })
+set({ 'n', 'v' }, '<C-.>', '4<C-e>', { desc = '' })
 
 set('n', '<C-j>', function()
     vim.o.relativenumber = not vim.o.relativenumber
@@ -143,7 +146,6 @@ set('n', '<leader>d', function()
 end, { desc = 'Toggle pollution of buffer with existing diag msgs' })
 
 set('n', '<leader>zz', ':VimadeToggle<CR>', { desc = '[T]oggle [V]imade (window tint)' })
-set('n', '<leader>tt', ':term<CR>', { desc = 'Invoke terminal emulator' })
 
 set("n", "kd", "<Plug>(nvim-surround-delete)", {
     desc = "Delete a surrounding pair",
