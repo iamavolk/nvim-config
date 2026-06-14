@@ -4,27 +4,51 @@
 
 local set = vim.keymap.set
 
-set('n', '<C-x><C-x>', '<cmd>source %<CR>')
+set('n', '<C-s><C-x>', '<cmd>source %<CR>')
 set('n', '<Space>x', ':.lua<CR>')
 set('v', '<Space>x', ':lua<CR>')
 set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
-set('n', '<A-n>', ':cnext<CR>')
-set('n', '<A-p>', ':cprev<CR>')
+set('n', '<A-n>', ':cnext<CR>', { desc = 'Quickfix navigation' })
+set('n', '<A-p>', ':cprev<CR>', { desc = 'Quickfix navigation' })
 set('t', '<Esc>', '<C-\\><C-n>')
 set('n', '<C-w><C-t>', ':tabnew<CR>', { desc = 'New tab' })
 set({'n', 'o'}, ')', 'gt',  { desc = 'Next tab' })
 set({'n', 'o'}, '(', 'gT',  { desc = 'Prev tab' })
 
 set('i', '<C-Backspace>', '<C-w>', { desc = '' })
-set('i', '<C-Space>', '<Space>', { desc = 'Has to do with keyd daemon quirks' })
+set('i', '<C-Space>', '<Space>', { desc = 'This has to do with keyd daemon quirks' })
 set('i', '<C-a>', '<C-Left>', { desc = 'Move left by word w/o leaving Insert Mode' })
-set('i', '<C-e>', function ()
-    vim.api.nvim_feedkeys(
-        vim.api.nvim_replace_termcodes('<C-o>E<Right>', true, true, true),
-        'i',
-        false)
-end, { desc = 'Move right by word w/o leaving Insert Mode' })
+
+set('i', '<C-e>', function()
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    local line = vim.api.nvim_get_current_line()
+
+    local next_char = line:sub(col + 1, col + 1)
+
+    if next_char == ')' or next_char == ']' or next_char == '}' then
+        vim.api.nvim_feedkeys(
+            vim.api.nvim_replace_termcodes('<Right>', true, true, true),
+            'i',
+            false
+        )
+    else
+        vim.api.nvim_feedkeys(
+            vim.api.nvim_replace_termcodes('<C-o>e<Right>', true, true, true),
+            'i',
+            false
+        )
+    end
+-- How does it make it ergonomic? Well, even with a set of pre-configured
+-- snippets and auto-closing parens we still ought to manually
+-- "hop out" of the general inner scope. Due to the way neovim/vim
+-- treats a closing bracket (of any variety) we would either need
+-- to resort to temp Normal mode or to somehow "go back out" from the next line
+-- we're inevitably thrown into without any hope of landing at the intended position.
+
+-- In addition, adding brackets to 'iskeyword' only further exacerbates the issue in a number of
+-- unrelated ways thereby having us enter the incessant "whack-a-mole" recreative pastime territory
+end, { desc = "Makes moving by word ergonomic in practice" })
 
 set('n', '<C-x><C-s>', vim.cmd.update, { desc = 'Save to same file' })
 set('n', '<C-q><C-q>', ":qall!<CR>", { desc = 'Exit all, ignore changes' })
@@ -36,21 +60,20 @@ set({ 'n', 'x', 'o' }, 'l', '^', { desc = '' })
 set({ 'n', 'x', 'o' }, 'j', '$', { desc = '' })
 set({ 'n', 'x', 'o' }, 'ge', 'Gzz', { desc = 'Goto last line and center the view' })
 
-
 -- Move split windows around
 set('n', '<S-Left>', '<C-w>H', { desc = 'Move Left' })
 set('n', '<S-Right>', '<C-w>L', { desc = 'Move Right' })
 set('n', '<S-Down>', '<C-w>J', { desc = 'Move Down' })
 set('n', '<S-Up>', '<C-w>K', { desc = 'Move Up' })
 
-set({ 'n', 'v' }, '<C-k>', '4<C-y>', { desc = '' })
-set({ 'n', 'v' }, '<C-.>', '4<C-e>', { desc = '' })
+set({ 'n', 'v' }, '<C-k>', '4<C-y>', { desc = '<C-y> but four times' })
+set({ 'n', 'v' }, '<C-.>', '4<C-e>', { desc = 'four times <C-e>' })
 
 set('n', '<C-j>', function()
     vim.o.relativenumber = not vim.o.relativenumber
 end, { desc = 'Toggle relative line numbers' })
 
-set('n', '<A-l>', function()
+set('n', '<C-l>', function()
     local top = vim.fn.line('w0')
     local bottom = vim.fn.line('w$')
     local mid = math.floor((bottom + top) / 2)
@@ -107,7 +130,7 @@ set('n', '<leader>e', function()
     header = '',
     prefix = '',
   })
-end, { desc = '' })
+end, { desc = 'On-demand diagnostic popup' })
 
 set('n', '<leader>m', function()
   require('telescope.builtin').marks({
@@ -158,9 +181,17 @@ set("x", "k", "<Plug>(nvim-surround-visual)", {
 })
 
 set('i', '<C-l>', function ()
-    local line = vim.api.nvim_win_get_cursor(0)[1]
-    vim.api.nvim_buf_set_lines(0, line, line, false, {''})
-end, { desc = 'Same as ]<space> but in Insert mode' })
+    local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+    vim.api.nvim_buf_set_lines(0, row, row, false, {''})
+end, { desc = "Same as ]<Space> but in Insert mode" })
+
+set('i', '<C-j>', function ()
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    vim.api.nvim_buf_set_lines(0, row-1, row-1, false, {''})
+end, { desc = "Same as [<Space> but in Insert mode" })
+
+set('n', '<C-x><C-x>', '<C-x>', {})
+set('n', '<C-i><C-i>', '<C-a>', {})
 
 -- Rudimentary TSTree navigation
 set('n', '<C-a>', function() 
