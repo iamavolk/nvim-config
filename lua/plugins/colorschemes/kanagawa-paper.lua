@@ -7,10 +7,9 @@ return {
             vim.cmd.colorscheme("kanagawa-paper-ink")
             vim.api.nvim_set_hl(0, "@lsp.typemod.variable.mutable.rust", { fg = "#b6927b", bold = false })
             vim.api.nvim_set_hl(0, "@lsp.typemod.macro.library.rust", { fg = "#c4746e", bold = false })
-            -- vim.api.nvim_set_hl(0, "@lsp.typemod.method.associated.rust", { fg = "#111111", bold = true })
-            -- #859fac
             vim.api.nvim_set_hl(0, "@lsp.typemod.struct.library.rust", { fg = "#8ea49e" })
             vim.api.nvim_set_hl(0, "@lsp.typemod.method.associated.rust", { fg = "#859fac" })
+            vim.g.day = false
         end,
         config = function()
             require("kanagawa-paper").setup({
