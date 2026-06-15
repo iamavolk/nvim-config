@@ -42,8 +42,7 @@ return {
                 -- When you move your cursor, the highlights will be cleared (the second autocommand).
                 local client = vim.lsp.get_client_by_id(event.data.client_id)
                 if client and client:supports_method("textDocument/documentHighlight", event.buf) then
-                    local highlight_augroup =
-                    vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+                    local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
                     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
                         buffer = event.buf,
                         group = highlight_augroup,
@@ -128,35 +127,35 @@ return {
                     if
                         path ~= vim.fn.stdpath("config")
                         and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
-                        then
-                            return
-                        end
+                    then
+                        return
                     end
+                end
 
-                    client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-                        runtime = {
-                            version = "LuaJIT",
-                            path = { "lua/?.lua", "lua/?/init.lua" },
-                        },
-                        workspace = {
-                            checkThirdParty = false,
-                            -- NOTE: this is a lot slower and will cause issues when working on your own configuration.
-                            --  See https://github.com/neovim/nvim-lspconfig/issues/3189
-                            -- library = vim.api.nvim_get_runtime_file("", true),
+                client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+                    runtime = {
+                        version = "LuaJIT",
+                        path = { "lua/?.lua", "lua/?/init.lua" },
+                    },
+                    workspace = {
+                        checkThirdParty = false,
+                        -- NOTE: this is a lot slower and will cause issues when working on your own configuration.
+                        --  See https://github.com/neovim/nvim-lspconfig/issues/3189
+                        -- library = vim.api.nvim_get_runtime_file("", true),
 
-                            library = {
-                                vim.env.VIMRUNTIME,
-                                '${3rd}/luv/library',
-                                '${3rd}/busted/library',
-                            }
+                        library = {
+                            vim.env.VIMRUNTIME,
+                            "${3rd}/luv/library",
+                            "${3rd}/busted/library",
                         },
-                    })
-                end,
-                settings = {
-                    Lua = {},
-                },
-            })
-            vim.lsp.enable("lua_ls")
-        end,
-    }
-    -- vim: ts=4 sts=4 sw=4 et
+                    },
+                })
+            end,
+            settings = {
+                Lua = {},
+            },
+        })
+        vim.lsp.enable("lua_ls")
+    end,
+}
+-- vim: ts=4 sts=4 sw=4 et

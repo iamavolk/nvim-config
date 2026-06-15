@@ -7,10 +7,10 @@ return {
             default_mappings = false,
             mappings = {
                 delete = "k",
-            }
+            },
         })
         vim.api.nvim_set_hl(0, "MarkSignHL", { fg = "#cc5555" })
-        vim.keymap.set('n', '<A-m>', require('marks').delete_line)
+        vim.keymap.set("n", "<A-m>", require("marks").delete_line)
     end,
 }
 -- vim: ts=4 sts=4 sw=4 et

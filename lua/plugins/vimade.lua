@@ -5,6 +5,6 @@ return {
     opts = {
         recipe = { "default", { animate = true } },
         fadelevel = 0.4,
-        ncmode = 'windows',
-    }
+        ncmode = "windows",
+    },
 }

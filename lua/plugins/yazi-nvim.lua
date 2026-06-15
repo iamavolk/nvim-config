@@ -22,13 +22,13 @@ return {
     },
 
     config = function()
-        require('yazi').setup({
+        require("yazi").setup({
             keymaps = {
-                show_help = '<C-h><C-h>',
+                show_help = "<C-h><C-h>",
                 copy_relative_path_to_selected_files = false,
             },
             highlight_hovered_buffers_in_same_directory = false,
-            yazi_floating_window_border = 'bold',
+            yazi_floating_window_border = "bold",
             floating_window_scaling_factor = 0.90,
         })
     end,

@@ -1,24 +1,26 @@
 return {
-    'saghen/blink.cmp',
+    "saghen/blink.cmp",
     -- event = 'VimEnter',
     event = "VeryLazy",
-    version = '1.*',
+    version = "1.*",
     dependencies = {
         {
-            'L3MON4D3/LuaSnip',
+            "L3MON4D3/LuaSnip",
             event = "VeryLazy",
-            version = '2.*',
+            version = "2.*",
             -- for snipper writing purposes:
             build = (function()
-                if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then return end
-                return 'make install_jsregexp'
+                if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
+                    return
+                end
+                return "make install_jsregexp"
             end)(),
             dependencies = {
                 {
-                    'rafamadriz/friendly-snippets',
+                    "rafamadriz/friendly-snippets",
                     event = "VeryLazy",
                     config = function()
-                        require('luasnip.loaders.from_vscode').lazy_load()
+                        require("luasnip.loaders.from_vscode").lazy_load()
                     end,
                 },
             },
@@ -28,47 +30,47 @@ return {
 
     opts = {
         keymap = {
-            preset = 'default',
+            preset = "default",
 
-            ['<C-n>'] = { 'select_next', 'fallback' },
-            ['<C-p>'] = { 'select_prev', 'fallback' },
+            ["<C-n>"] = { "select_next", "fallback" },
+            ["<C-p>"] = { "select_prev", "fallback" },
 
-            ['<C-f>'] = { 'snippet_forward', 'fallback' },
-            ['<C-b>'] = { 'snippet_backward', 'fallback' },
+            ["<C-f>"] = { "snippet_forward", "fallback" },
+            ["<C-b>"] = { "snippet_backward", "fallback" },
 
-            ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
-            ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
+            ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+            ["<C-u>"] = { "scroll_documentation_up", "fallback" },
 
-            ['<C-q>'] = { 'hide_signature' },
-            ['<C-s>'] = { 'show', 'show_documentation', 'fallback' },
-            ['<C-h>'] = { 'hide_documentation', 'hide', 'fallback' },
+            ["<C-q>"] = { "hide_signature" },
+            ["<C-s>"] = { "show", "show_documentation", "fallback" },
+            ["<C-h>"] = { "hide_documentation", "hide", "fallback" },
 
-            ['<C-space>'] = false,
+            ["<C-space>"] = false,
             -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion):
             --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
 
         appearance = {
-            nerd_font_variant = 'mono',
+            nerd_font_variant = "mono",
         },
 
         completion = {
-            menu = { border = 'solid' },
+            menu = { border = "solid" },
 
             documentation = {
                 auto_show = false,
                 auto_show_delay_ms = 500,
-                window = { border = 'solid' },
+                window = { border = "solid" },
                 treesitter_highlighting = false,
             },
         },
 
         sources = {
             min_keyword_length = 3,
-            default = { 'lsp', 'path', 'snippets', 'buffer' },
+            default = { "lsp", "path", "snippets", "buffer" },
         },
 
-        snippets = { preset = 'luasnip' },
+        snippets = { preset = "luasnip" },
 
         fuzzy = { implementation = "prefer_rust_with_warning" },
 

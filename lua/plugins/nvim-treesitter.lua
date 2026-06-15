@@ -1,17 +1,17 @@
 return {
-    'nvim-treesitter/nvim-treesitter',
+    "nvim-treesitter/nvim-treesitter",
     lazy = false,
-    build = ':TSUpdate',
+    build = ":TSUpdate",
     config = function()
-        local ftypes = { 'c', 'diff', 'lua', 'luadoc',  'markdown',
-                         'markdown_inline', 'query', 'vim', 'python',
-                         'rust'}
+        local ftypes = { "c", "diff", "lua", "luadoc", "markdown", "markdown_inline", "query", "vim", "python", "rust" }
 
-        require('nvim-treesitter').install(ftypes)
+        require("nvim-treesitter").install(ftypes)
 
-        vim.api.nvim_create_autocmd('FileType', {
+        vim.api.nvim_create_autocmd("FileType", {
             pattern = ftypes,
-            callback = function() vim.treesitter.start() end,
+            callback = function()
+                vim.treesitter.start()
+            end,
         })
     end,
 }

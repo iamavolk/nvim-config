@@ -1,73 +1,74 @@
 return {
-    'nvim-telescope/telescope.nvim',
+    "nvim-telescope/telescope.nvim",
     event = "VeryLazy",
     dependencies = {
-        { 'nvim-lua/plenary.nvim' },
+        { "nvim-lua/plenary.nvim" },
         { -- If encountering errors, see telescope-fzf-native README for installation instructions
-            'nvim-telescope/telescope-fzf-native.nvim',
+            "nvim-telescope/telescope-fzf-native.nvim",
 
             -- `build` is used to run some command when the plugin is installed/updated.
             -- This is only run then, not every time Neovim starts up.
-            build = 'make',
+            build = "make",
 
             -- `cond` is a condition used to determine whether this plugin should be
             -- installed and loaded.
-            cond = function() return vim.fn.executable 'make' == 1 end,
+            cond = function()
+                return vim.fn.executable("make") == 1
+            end,
         },
-        { 'nvim-telescope/telescope-ui-select.nvim' },
-        { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+        { "nvim-telescope/telescope-ui-select.nvim" },
+        { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
     },
 
     config = function()
-
         local select_one_or_multi = function(prompt_bufnr)
-          local picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
-          local multi = picker:get_multi_selection()
-          if not vim.tbl_isempty(multi) then
-            require('telescope.actions').close(prompt_bufnr)
-            for _, j in pairs(multi) do
-              if j.path ~= nil then
-                vim.cmd(string.format('%s %s', 'edit', j.path))
-              end
+            local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+            local multi = picker:get_multi_selection()
+            if not vim.tbl_isempty(multi) then
+                require("telescope.actions").close(prompt_bufnr)
+                for _, j in pairs(multi) do
+                    if j.path ~= nil then
+                        vim.cmd(string.format("%s %s", "edit", j.path))
+                    end
+                end
+            else
+                require("telescope.actions").select_default(prompt_bufnr)
             end
-          else
-            require('telescope.actions').select_default(prompt_bufnr)
-          end
         end
 
-        require('telescope').setup {
+        require("telescope").setup({
             -- `:help telescope.setup()`
             defaults = {
-                layout_strategy = 'vertical',
+                layout_strategy = "vertical",
                 -- border = false,
                 mappings = {
-                -- i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+                    -- i = { ['<c-enter>'] = 'to_fuzzy_refine' },
                     i = {
-                        ['<C-d>'] = 'delete_buffer',
-                        ['<C-m>'] = select_one_or_multi,
+                        ["<C-d>"] = "delete_buffer",
+                        ["<C-m>"] = select_one_or_multi,
                         -- ['<C-m>'] = 'select_default',
-                        ['<C-f>'] = 'preview_scrolling_right',
-                        ['<C-b>'] = 'preview_scrolling_left',
-                        ['<C-s>'] = 'toggle_selection',
-                        ['<Right>'] = 'add_selection',
-                        ['<Left>'] = 'remove_selection',
-                        ['<C-e>'] = 'preview_scrolling_down',
-                        ['<C-y>'] = 'preview_scrolling_up',
+                        ["<C-f>"] = "preview_scrolling_right",
+                        ["<C-b>"] = "preview_scrolling_left",
+                        ["<C-s>"] = "toggle_selection",
+                        ["<Right>"] = "add_selection",
+                        ["<Left>"] = "remove_selection",
+                        ["<C-e>"] = "preview_scrolling_down",
+                        ["<C-y>"] = "preview_scrolling_up",
                     },
                 },
             },
             -- pickers = {}
             extensions = {
-                ['ui-select'] = { require('telescope.themes').get_dropdown() },
+                ["ui-select"] = { require("telescope.themes").get_dropdown() },
             },
-        }
+        })
 
         -- Enable Telescope extensions if they are installed
-        pcall(require('telescope').load_extension, 'fzf')
-        pcall(require('telescope').load_extension, 'ui-select')
+        pcall(require("telescope").load_extension, "fzf")
+        pcall(require("telescope").load_extension, "ui-select")
 
         -- Set numbers in the preview
-        vim.api.nvim_create_autocmd('User', {
+        vim.api.nvim_create_autocmd("User", {
             pattern = "TelescopePreviewerLoaded",
             callback = function()
                 vim.wo.number = true
@@ -75,61 +76,81 @@ return {
         })
 
         -- See `:help telescope.builtin`
-        local builtin = require 'telescope.builtin'
-        vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-        vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-        vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = '[S]earch [F]iles' })
-        vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-        vim.keymap.set({ 'n', 'v' }, '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-        vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-        vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-        vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-        vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-        vim.keymap.set('n', '<leader>sc', builtin.commands, { desc = '[S]earch [C]ommands' })
+        local builtin = require("telescope.builtin")
+        vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
+        vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
+        vim.keymap.set("n", "<leader>f", builtin.find_files, { desc = "[S]earch [F]iles" })
+        vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
+        vim.keymap.set({ "n", "v" }, "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
+        vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+        vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
+        vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
+        vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+        vim.keymap.set("n", "<leader>sc", builtin.commands, { desc = "[S]earch [C]ommands" })
 
         -- This runs on LSP attach per buffer (see main LSP attach function in 'neovim/nvim-lspconfig' config for more info,
         -- it is better explained there). This allows easily switching between pickers if you prefer using something else!
-        vim.api.nvim_create_autocmd('LspAttach', {
-            group = vim.api.nvim_create_augroup('telescope-lsp-attach', { clear = true }),
+        vim.api.nvim_create_autocmd("LspAttach", {
+            group = vim.api.nvim_create_augroup("telescope-lsp-attach", { clear = true }),
             callback = function(event)
                 local buf = event.buf
 
                 -- Find references for the word under your cursor.
-                vim.keymap.set('n', 'grr', builtin.lsp_references, { buffer = buf, desc = '[G]oto [R]eferences' })
+                vim.keymap.set("n", "grr", builtin.lsp_references, { buffer = buf, desc = "[G]oto [R]eferences" })
 
                 -- Jump to the implementation of the word under your cursor.
                 -- Useful when your language has ways of declaring types without an actual implementation.
-                vim.keymap.set('n', 'gri', builtin.lsp_implementations, { buffer = buf, desc = '[G]oto [I]mplementation' })
+                vim.keymap.set(
+                    "n",
+                    "gri",
+                    builtin.lsp_implementations,
+                    { buffer = buf, desc = "[G]oto [I]mplementation" }
+                )
 
                 -- Jump to the definition of the word under your cursor.
                 -- This is where a variable was first declared, or where a function is defined, etc.
                 -- To jump back, press <C-t>.
-                vim.keymap.set('n', 'grd', builtin.lsp_definitions, { buffer = buf, desc = '[G]oto [D]efinition' })
-                vim.keymap.set('n', 'grD', vim.lsp.buf.declaration, { buffer = buf, desc = '[G]oto [D]eclaration' })
+                vim.keymap.set("n", "grd", builtin.lsp_definitions, { buffer = buf, desc = "[G]oto [D]efinition" })
+                vim.keymap.set("n", "grD", vim.lsp.buf.declaration, { buffer = buf, desc = "[G]oto [D]eclaration" })
 
                 -- Fuzzy find all the symbols in your current document.
                 -- Symbols are things like variables, functions, types, etc.
-                vim.keymap.set('n', 'gO', builtin.lsp_document_symbols, { buffer = buf, desc = 'Open Document Symbols' })
+                vim.keymap.set(
+                    "n",
+                    "gO",
+                    builtin.lsp_document_symbols,
+                    { buffer = buf, desc = "Open Document Symbols" }
+                )
 
                 -- Fuzzy find all the symbols in your current workspace.
                 -- Similar to document symbols, except searches over your entire project.
-                vim.keymap.set('n', 'gW', builtin.lsp_dynamic_workspace_symbols, { buffer = buf, desc = 'Open Workspace Symbols' })
+                vim.keymap.set(
+                    "n",
+                    "gW",
+                    builtin.lsp_dynamic_workspace_symbols,
+                    { buffer = buf, desc = "Open Workspace Symbols" }
+                )
 
                 -- Jump to the type of the word under your cursor.
                 -- Useful when you're not sure what type a variable is and you want to see
                 -- the definition of its *type*, not where it was *defined*.
-                vim.keymap.set('n', 'grt', builtin.lsp_type_definitions, { buffer = buf, desc = '[G]oto [T]ype Definition' })
-
+                vim.keymap.set(
+                    "n",
+                    "grt",
+                    builtin.lsp_type_definitions,
+                    { buffer = buf, desc = "[G]oto [T]ype Definition" }
+                )
 
                 local map = function(keys, func, desc, mode)
-                    mode = mode or 'n'
-                    vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+                    mode = mode or "n"
+                    vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
                 end
 
-
                 local client = vim.lsp.get_client_by_id(event.data.client_id)
-                if client and client:supports_method('textDocument/inlayHint', event.buf) then
-                    map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[T]oggle Inlay [H]ints')
+                if client and client:supports_method("textDocument/inlayHint", event.buf) then
+                    map("<leader>th", function()
+                        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+                    end, "[T]oggle Inlay [H]ints")
                 end
 
                 -- if client and client:supports_method('textDocument/documentHighLight', event.buf) then
@@ -159,51 +180,38 @@ return {
         })
 
         vim.keymap.set(
-            'n',
-            '<leader>b',
+            "n",
+            "<leader>b",
             -- function() builtin.buffers(require('telescope.themes').get_ivy({
-            function() builtin.buffers(require('telescope.themes').get_dropdown({
-                previewer = false,
-            })) end,
-            { desc = '' }
-        )
-
-        -- Override default behavior and theme when searching
-        vim.keymap.set(
-            'n',
-            '<leader>/',
             function()
-                -- Pass a "theme" to the picker to change style
-                builtin.current_buffer_fuzzy_find(require('telescope.themes').get_ivy({
-                    -- winblend = 20,
+                builtin.buffers(require("telescope.themes").get_dropdown({
                     previewer = false,
                 }))
             end,
-            { desc = '[/] Fuzzily search in current buffer' }
+            { desc = "" }
         )
 
-        vim.keymap.set(
-            'n',
-            '<leader>s/',
-            function()
-                builtin.live_grep({
-                    grep_open_files = true,
-                    prompt_title = 'Live Grep in Open Files',
-                })
-            end,
-            { desc = '[S]earch [/] in Open Files' }
-        )
+        -- Override default behavior and theme when searching
+        vim.keymap.set("n", "<leader>/", function()
+            -- Pass a "theme" to the picker to change style
+            builtin.current_buffer_fuzzy_find(require("telescope.themes").get_ivy({
+                -- winblend = 20,
+                previewer = false,
+            }))
+        end, { desc = "[/] Fuzzily search in current buffer" })
 
-        vim.keymap.set(
-            'n',
-            '<leader>sn',
-            function()
-                builtin.find_files(require('telescope.themes').get_dropdown({
-                    cwd = vim.fn.stdpath('config')
-                }))
-            end,
-            { desc = '[S]earch [N]eovim files' }
-        )
+        vim.keymap.set("n", "<leader>s/", function()
+            builtin.live_grep({
+                grep_open_files = true,
+                prompt_title = "Live Grep in Open Files",
+            })
+        end, { desc = "[S]earch [/] in Open Files" })
+
+        vim.keymap.set("n", "<leader>sn", function()
+            builtin.find_files(require("telescope.themes").get_dropdown({
+                cwd = vim.fn.stdpath("config"),
+            }))
+        end, { desc = "[S]earch [N]eovim files" })
     end,
 }
 -- vim: ts=4 sts=4 sw=4 et

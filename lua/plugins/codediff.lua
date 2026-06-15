@@ -4,7 +4,7 @@ return {
     opts = {
         keymaps = {
             explorer = {
-                select = '<C-m>',
+                select = "<C-m>",
             },
         },
     },
