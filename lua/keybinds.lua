@@ -9,6 +9,15 @@ set("n", "<C-s><C-x>", "<cmd>source %<CR>")
 set("n", "<Space>x", ":.lua<CR>")
 set("v", "<Space>x", ":lua<CR>")
 set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+set("n", "<leader>jj", function()
+    if not vim.g.day then
+        vim.cmd.colorscheme("koda-light")
+        vim.g.day = true
+    else
+        vim.cmd.colorscheme("kanagawa-paper-ink")
+        vim.g.day = false
+    end
+end, { desc = "" })
 
 set("n", "<A-n>", ":cnext<CR>", { desc = "Quickfix navigation" })
 set("n", "<A-p>", ":cprev<CR>", { desc = "Quickfix navigation" })
@@ -178,7 +187,7 @@ set("i", "<C-l>", function()
     vim.api.nvim_buf_set_lines(0, row, row, false, { "" })
 end, { desc = "Same as ]<Space> but in Insert mode" })
 
-set("i", "<C-j>", function()
+set("i", "<A-l>", function()
     local row, col = unpack(vim.api.nvim_win_get_cursor(0))
     vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, { "" })
 end, { desc = "Same as [<Space> but in Insert mode" })
