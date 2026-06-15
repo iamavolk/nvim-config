@@ -12,17 +12,18 @@ return {
                 version = "LuaJIT",
                 path = { "lua/?.lua", "lua/?/init.lua" },
             },
-            workspace = {
-                checkThirdParty = false,
-                -- Pulls in all of runtime 
-                -- library = vim.api.nvim_get_runtime_file("", true),
-
-                library = {
-                        vim.env.VIMRUNTIME,
-                        -- '${3rd}/luv/library',
-                        -- '${3rd}/busted/library',
-                }
-            },
+            -- workspace = {
+            --     checkThirdParty = false,
+            --     -- Pulls in all of runtime upfront
+            --     -- library = vim.api.nvim_get_runtime_file("", true),
+            --
+            --     library = {
+            --             -- Pulls in runtime lazily and caches things
+            --             -- vim.env.VIMRUNTIME,
+            --             -- '${3rd}/luv/library',
+            --             -- '${3rd}/busted/library',
+            --     }
+            -- },
         })
     end,
 
