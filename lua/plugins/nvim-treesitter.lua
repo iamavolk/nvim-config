@@ -4,13 +4,26 @@ return {
     build = ":TSUpdate",
     config = function()
         local ftypes = {
-            "c", "diff", "lua", "luadoc",
-            "hcl", "cpp", "javascript",
-            "java", "pug", "systemverilog",
-            "markdown", "markdown_inline",
-            "query", "vim", "python", "rust",
-            "terraform", "typescript", "typst",
+            "c",
+            "cpp",
+            "diff",
             "dockerfile",
+            "hcl",
+            "java",
+            "javascript",
+            "lua",
+            "luadoc",
+            "markdown",
+            "markdown_inline",
+            "pug",
+            "python",
+            "query",
+            "rust",
+            "systemverilog",
+            "terraform",
+            "typescript",
+            "typst",
+            "vim",
         }
 
         require("nvim-treesitter").install(ftypes)
