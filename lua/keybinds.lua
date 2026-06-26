@@ -35,8 +35,17 @@ set("i", "<C-e>", function()
     local line = vim.api.nvim_get_current_line()
 
     local next_char = line:sub(col + 1, col + 1)
+    local target_chars = {
+        [")"] = true,
+        ["]"] = true,
+        ["}"] = true,
+        ["'"] = true,
+        ['"'] = true,
+        [">"] = true,
+    }
 
-    if next_char == ")" or next_char == "]" or next_char == "}" then
+    -- if next_char == ")" or next_char == "]" or next_char == "}" or next_char == "'" then
+    if target_chars[next_char] then
         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Right>", true, true, true), "i", false)
     else
         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-o>e<Right>", true, true, true), "i", false)
@@ -230,4 +239,12 @@ end, {})
 
 set("v", "<A-p>", function()
     vim.api.nvim_feedkeys("[n", "v", false)
+end, {})
+
+set("v", "<A-f>", function()
+    vim.api.nvim_feedkeys("]N", "v", false)
+end, {})
+
+set("v", "<A-b>", function()
+    vim.api.nvim_feedkeys("[N", "v", false)
 end, {})
