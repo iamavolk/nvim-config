@@ -9,6 +9,8 @@ return {
             "diff",
             "dockerfile",
             "hcl",
+            "html",
+            "html_tags",
             "java",
             "javascript",
             "lua",
@@ -21,8 +23,10 @@ return {
             "rust",
             "systemverilog",
             "terraform",
+            "toml",
             "typescript",
             "typst",
+            "yaml",
             "vim",
         }
 
