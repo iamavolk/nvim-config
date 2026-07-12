@@ -36,7 +36,9 @@ vim.api.nvim_create_autocmd("ModeChanged", {
     desc = "Enable relative numbers only in visual and operator pending modes",
     pattern = { "*:no", "*:v", "*:V", "*:\x16" },
     callback = function()
-        vim.opt.relativenumber = true
+        if vim.bo.buftype ~= "nofile" then
+            vim.opt.relativenumber = true
+        end
     end,
 })
 
