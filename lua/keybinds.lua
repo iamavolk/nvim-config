@@ -61,6 +61,8 @@ set("i", "<C-e>", function()
     -- unrelated ways thereby having us enter the incessant "whack-a-mole" recreative pastime territory
 end, { desc = "Makes moving by word ergonomic in practice" })
 
+
+set("n", "<leader>a", "<C-^>", { desc = "test alternate buffer" })
 set("n", "<C-x><C-s>", vim.cmd.update, { desc = "Save to same file" })
 set("n", "<C-q><C-q>", ":qall!<CR>", { desc = "Exit all, ignore changes" })
 
