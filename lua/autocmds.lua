@@ -49,3 +49,12 @@ vim.api.nvim_create_autocmd("ModeChanged", {
         vim.opt.relativenumber = false
     end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+    desc = "",
+    callback = function(event)
+        vim.defer_fn(function ()
+            vim.treesitter.start(event.buf, "systemverilog")
+        end, 0)
+    end
+})
