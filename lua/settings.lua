@@ -12,11 +12,12 @@ vim.g.nvim_surround_no_mappings = true
 --    Opt: {}
 --]]
 --------------------
+--vim.opt.showmatch       = true -- momentarily jumps to a matching bracket upon insertion of one
 vim.opt.breakindent = true
-vim.opt.confirm = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.completeopt = { "menuone" }
 vim.opt.conceallevel = 0
+vim.opt.confirm = true
 vim.opt.cursorline = true
 vim.opt.expandtab = true -- all tabs replaced by spaces
 vim.opt.foldcolumn = "2" -- fixed, less mentally taxing
@@ -29,18 +30,18 @@ vim.opt.mouse = "a" -- default is "nvi", whereas "a" stands for "nvich" (command
 vim.opt.number = true
 vim.opt.scrolloff = 10
 vim.opt.shiftwidth = 4
---vim.opt.showmatch       = true -- momentarily jumps to a matching bracket upon insertion of one
 vim.opt.signcolumn = "yes"
 vim.opt.smartcase = true -- overrides ignorecase is case of explicit capital letters
 vim.opt.splitbelow = true
+vim.opt.swapfile = false
 vim.opt.tabstop = 2
 vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.updatetime = 1000
 vim.opt.virtualedit = "block" -- allowed only in Visual Block mode
-vim.opt.writebackup = false
-vim.opt.swapfile = false
+vim.opt.viewoptions = "folds,cursor,curdir,slash,unix"
 vim.opt.wrap = false
+vim.opt.writebackup = false
 
 if vim.env.SSH_TTY then
     vim.g.clipboard = {

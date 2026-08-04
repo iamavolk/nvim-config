@@ -26,6 +26,13 @@ set("n", "<C-w><C-t>", ":tabnew<CR>", { desc = "New tab" })
 set({ "n", "o" }, ")", "gt", { desc = "Next tab" })
 set({ "n", "o" }, "(", "gT", { desc = "Prev tab" })
 
+set({"n"}, "<C-x>m", function()
+    vim.ui.select({"Yes", "No"}, { prompt = "Save current view?" }, function(choice)
+        if choice == "Yes" then vim.cmd("mkview") end
+    end)
+end, { desc = "Save/Overwrite view" })
+set({"n"}, "<C-x>l", ":loadview<CR>", { desc = "Load view" })
+
 set("i", "<C-Backspace>", "<C-w>", { desc = "" })
 set("i", "<C-Space>", "<Space>", { desc = "This has to do with keyd daemon quirks" })
 set("i", "<C-a>", "<C-Left>", { desc = "Move left by word w/o leaving Insert Mode" })
