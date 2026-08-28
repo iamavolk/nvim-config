@@ -9,7 +9,7 @@ return {
         { "_", "_", fly = false, dosuround = true, newline = false, space = true, ft = { "markdown" } },
         { "**", "**", fly = true, dosuround = true, newline = false, space = true, ft = { "markdown" } },
         { "<", ">", fly = true, dosuround = true, newline = true, space = true, ft = { "markdown" } },
-        { "'", "'", fly=true, dosuround = true, newline = false, space = false, ft = { "rust" } },
+        -- { "'", "'", fly=true, dosuround = true, newline = false, space = false, ft = { "rust" } },
 
         fastwarp = { map = "<A-f>", rmap = "<A-b>" },
         bs = { map = { "<BS>", "<C-h>" } },

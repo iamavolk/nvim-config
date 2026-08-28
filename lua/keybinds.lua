@@ -26,12 +26,12 @@ set("n", "<C-w><C-t>", ":tabnew<CR>", { desc = "New tab" })
 set({ "n", "o" }, ")", "gt", { desc = "Next tab" })
 set({ "n", "o" }, "(", "gT", { desc = "Prev tab" })
 
-set({"n"}, "<C-x>m", function()
+set({"n"}, "<C-x><C-m>", function()
     vim.ui.select({"Yes", "No"}, { prompt = "Save current view?" }, function(choice)
         if choice == "Yes" then vim.cmd("mkview") end
     end)
 end, { desc = "Save/Overwrite view" })
-set({"n"}, "<C-x>l", ":loadview<CR>", { desc = "Load view" })
+set({"n"}, "<C-x><C-l>", ":loadview<CR>", { desc = "Load view" })
 
 set("i", "<C-Backspace>", "<C-w>", { desc = "" })
 set("i", "<C-Space>", "<Space>", { desc = "This has to do with keyd daemon quirks" })
@@ -92,6 +92,8 @@ set({ "n", "v" }, "<C-.>", "4<C-e>", { desc = "four times <C-e>" })
 set("n", "<C-j>", function()
     vim.o.relativenumber = not vim.o.relativenumber
 end, { desc = "Toggle relative line numbers" })
+
+set("n", "<leader>u", "gUaw", { desc = "Fast Uppercase per word" })
 
 set("n", "<C-l>", function()
     local top = vim.fn.line("w0")
@@ -211,7 +213,6 @@ set("i", "<A-l>", function()
 end, { desc = "Same as [<Space> but in Insert mode" })
 
 set("n", "<C-x><C-x>", "<C-x>", {})
-set("n", "<C-i><C-i>", "<C-a>", {})
 
 -- Rudimentary TSTree navigation
 set("n", "<A-a>", function()
