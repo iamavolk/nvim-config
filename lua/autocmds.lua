@@ -53,8 +53,6 @@ vim.api.nvim_create_autocmd("ModeChanged", {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "systemverilog",
     callback = function(event)
-        vim.defer_fn(function ()
-            vim.treesitter.start(event.buf, "systemverilog")
-        end, 0)
+        vim.treesitter.start(event.buf, "systemverilog")
     end
 })

@@ -11,6 +11,10 @@ return {
         { "<", ">", fly = true, dosuround = true, newline = true, space = true, ft = { "markdown" } },
         -- { "'", "'", fly=true, dosuround = true, newline = false, space = false, ft = { "rust" } },
 
+        config_internal_pairs = {
+            { "'", "'", nft = { "tex", "rust", "systemverilog" } },
+        },
+
         fastwarp = { map = "<A-f>", rmap = "<A-b>" },
         bs = { map = { "<BS>", "<C-h>" } },
         cr = { map = "<C-m>" },
