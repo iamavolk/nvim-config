@@ -94,6 +94,7 @@ set("n", "<C-j>", function()
 end, { desc = "Toggle relative line numbers" })
 
 set("n", "<leader>u", "gUaw", { desc = "Fast Uppercase per word" })
+set("v", "<leader>u", "gU", { desc = "Fast Uppercase per selection" })
 
 set("n", "<C-l>", function()
     local top = vim.fn.line("w0")
