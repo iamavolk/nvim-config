@@ -13,6 +13,7 @@ return {
 
         config_internal_pairs = {
             { "'", "'", nft = { "tex", "rust", "systemverilog" } },
+            { "`", "`", nft = { "systemverilog" } },
         },
 
         fastwarp = { map = "<A-f>", rmap = "<A-b>" },

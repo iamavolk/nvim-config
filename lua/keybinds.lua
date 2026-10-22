@@ -259,3 +259,14 @@ end, {})
 set("v", "<A-b>", function()
     vim.api.nvim_feedkeys("[N", "v", false)
 end, {})
+
+vim.keymap.del({"i", "s"}, "<Tab>")
+
+set("i", "<C-i>", "<Tab>", { desc = "" })
+
+set("n", "<leader><leader>n", function ()
+    vim.diagnostic.jump({count = 1})
+end, { desc = "" })
+set("n", "<leader><leader>p", function ()
+    vim.diagnostic.jump({count = -1})
+end, { desc = "" })

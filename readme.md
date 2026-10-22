@@ -1,4 +1,4 @@
-# 🚀 Functional and ergonomic Neovim (stable, 0.12) config
+# 🚀 Ergonomic Neovim (0.12+) config
 
 ## Plugin/package manager
 - Lazy (`lazy-boostrap.lua` bootstraps lazy.nvim if not installed)
@@ -25,8 +25,8 @@
 - [x] [yazi-nvim](https://github.com/mikavilpas/yazi.nvim) ([yazi](https://github.com/sxyazi/yazi) inside nvim)
 
 
-## TODO
-- [ ] (WIP) Modular LSP organization
+## WIP
+- [ ] Structrual (not yet plugin-level material): follows Helix's model of next/prev selection across Treesitter nodes
 - [ ] DAP
 
 ## Keymaps
@@ -34,7 +34,7 @@
     mapped to [TOTEM](https://github.com/GEIGEIGEIST/TOTEM) split keyboard
 
 ## News
-- `nvim-treesitter` is now on `main` branch  
+- `nvim-treesitter` is now on `main` branch
     (dropped incremental selection and some other functionality)
 - `telescope` is on v0.2
 
@@ -49,3 +49,4 @@
 
 ## Future releases and associated points of interest (v0.12+)
 - native plugin manager (`pack`)
+- 0.13 brings native multicursor(s)
